@@ -27,7 +27,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return this.id + " " + this.name + " " + this.username + " " + this.password; //To change body of generated methods, choose Tools | Templates.
+        return this.id + "\n" + this.name + "\n" + this.username + "\n" + this.password + "\n"; //To change body of generated methods, choose Tools | Templates.
     }
     
 }

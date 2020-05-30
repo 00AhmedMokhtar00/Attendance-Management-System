@@ -8,6 +8,7 @@ package hms;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -101,6 +102,7 @@ public class LoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_user_txtActionPerformed
 
     private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
+        boolean isRegistered = false;
         String password = password_txt.getText();
         String username = user_txt.getText();
         String std_usr, std_pas;
@@ -110,26 +112,46 @@ public class LoginPage extends javax.swing.JFrame {
         }else{
             try {
                 File myObj = new File("students.txt");
-                Scanner myReader = new Scanner(myObj);
-                while (myReader.hasNextLine()) {
-                  String id = myReader.next();
-                  String name = myReader.next();
-                  String usr = myReader.next();
-                  String pas = myReader.next();
-                  System.out.println(id + "this is the id only");
-                  System.out.println(pas + "this is the password only");
+                Scanner reader = new Scanner(myObj);
+                 while (reader.hasNextLine()) {
+                     String id = reader.nextLine();
+                     String name = reader.nextLine();
+                     String usr = reader.nextLine();
+                     String pas = reader.nextLine();
+               
+                  
+                  if(usr.equals(username) && pas.equals(password)){
+                      HMS.current_user = id;
+                      HMS.student.setVisible(true);
+                      this.setVisible(false);
+                      isRegistered = true;
+                      break;
+                  }
+                  }
+                 if(!isRegistered){
+                     JOptionPane.showMessageDialog(rootPane, "You are not registered, please contact the administraitor.", null,JOptionPane.WARNING_MESSAGE);
+                 }
+                  reader.close();
+                } catch (FileNotFoundException e) {
+                    System.out.println("An error occurred.");
+                     e.printStackTrace();
+                }
+         
+        
+           
+                /*
+                String id = HMS.reader.next();
+                  String name = HMS.reader.next();
+                  String usr = HMS.reader.next();
+                  String pas = HMS.reader.next();
+               
                   
                   if(usr.equals(username) && pas.equals(password)){
                       HMS.current_user = id;
                       HMS.student.setVisible(true);
                       this.setVisible(false);
                   }
-                    }
-                 myReader.close();
-             } catch (FileNotFoundException e) {
-                 System.out.println("An error occurred.");
-                 e.printStackTrace();
-                }
+                */
           
         }
     }//GEN-LAST:event_login_btnActionPerformed

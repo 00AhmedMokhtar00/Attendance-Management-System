@@ -8,7 +8,9 @@ package hms;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
@@ -34,24 +36,39 @@ public class HMS extends JApplet {
     private static final int JFXPANEL_WIDTH_INT = 300;
     private static final int JFXPANEL_HEIGHT_INT = 250;
     private static JFXPanel fxContainer;
+    
+    public static void createFile(){
+        try {  
+            File myObj = new File("students.txt");
+      
+             if (myObj.createNewFile()) {
+             System.out.println("File created: " + myObj.getName());
+        } else {
+             System.out.println("File already exists.");
+             }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+    public static void writeToFile(String line){
+        try {
+            FileWriter myWriter = new FileWriter("students.txt");
+            myWriter.write(line);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+             System.out.println("An error occurred in writing.");
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         
-        try {
-      File myObj = new File("students.txt");
-      if (myObj.createNewFile()) {
-        System.out.println("File created: " + myObj.getName());
-      } else {
-        System.out.println("File already exists.");
-      }
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
-        
+        createFile();
         SwingUtilities.invokeLater(new Runnable() {
             
             @Override

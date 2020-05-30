@@ -5,8 +5,23 @@
  */
 package hms;
 
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +34,13 @@ public class AdminPage extends javax.swing.JFrame {
      */
     public AdminPage() {
         initComponents();
+    }
+    
+    void reset(){
+        name_txt.setText("");
+        user_txt.setText("");
+        pass_txt.setText("");
+        id_txt.setText("");
     }
 
     /**
@@ -179,7 +201,7 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_pass_txtActionPerformed
 
     private void add_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_btnActionPerformed
-
+        
         String id, name, user, password;
         id = id_txt.getText();
         name = name_txt.getText();
@@ -189,10 +211,10 @@ public class AdminPage extends javax.swing.JFrame {
         
         
         try {
-      FileWriter myWriter = new FileWriter("students.txt");
-      myWriter.write(s.toString());
-      myWriter.close();
-      System.out.println("Successfully wrote to the file.");
+        Files.write(Paths.get("students.txt"), s.toString().getBytes(), StandardOpenOption.APPEND);
+        reset();
+        JOptionPane.showMessageDialog(rootPane, "Student Added Sucessfully", null,JOptionPane.INFORMATION_MESSAGE);
+        System.out.println("Successfully wrote to the file.");
     } catch (IOException e) {
       System.out.println("An error occurred.");
       e.printStackTrace();
@@ -201,7 +223,36 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_add_btnActionPerformed
 
     private void delete_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_btnActionPerformed
-        // TODO add your handling code here:
+        Student s;
+        StudentList stList = new StudentList();
+        
+        try {
+                File myObj = new File("students.txt");
+                Scanner reader = new Scanner(myObj);
+                 while (reader.hasNextLine()) {
+                     String id = reader.nextLine();
+                     String name = reader.nextLine();
+                     String usr = reader.nextLine();
+                     String pas = reader.nextLine();
+                     s = new Student(name, usr, pas, id);
+                     stList.insert(s);
+                  }
+                  reader.close();
+                  if(stList.delete(id_txt.getText()) == true){
+                      JOptionPane.showMessageDialog(rootPane, "Student Deleted Sucessfully", null,JOptionPane.INFORMATION_MESSAGE);
+                  }
+                  else{
+                      JOptionPane.showMessageDialog(rootPane, "Student with this ID doesn't exist", null,JOptionPane.WARNING_MESSAGE);
+                  }
+                  HMS.writeToFile(stList.toString());
+                  System.out.println(stList.toString());
+                  reset();
+                  
+                } catch (FileNotFoundException e) {
+                    System.out.println("An error occurred.");
+                     e.printStackTrace();
+                }
+        
     }//GEN-LAST:event_delete_btnActionPerformed
 
     /**

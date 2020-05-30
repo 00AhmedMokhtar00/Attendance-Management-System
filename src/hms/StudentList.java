@@ -13,6 +13,23 @@ public class StudentList {
       students[length] = s;
       length++;
     }
+    boolean delete(String id){
+      int i; 
+      for(i = 0 ; i < length ; i++){
+          if(students[i].id.equals(id)){
+              break;
+          }
+      }
+      if(i < length){
+          students[i] = null;
+          length--;
+          for(int j = i ; j < length ; j++){
+              students[j] = students[j+1];
+          }
+          return true;
+      }
+      return false;
+    }
     
     void setAttendance (String id , boolean attendance ){
         for (int i = 0; i < length ; i++){
