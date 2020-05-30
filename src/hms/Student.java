@@ -13,9 +13,9 @@ import java.util.ArrayList;
  */
 public class Student {
     String name,username, password;
-    int id;
+    String id;
     ArrayList <Boolean> attendance = new ArrayList ();
-    Student (String name , String username , String password , int id ){
+    Student (String name , String username , String password , String id ){
         this.name = name;
         this.username = username;
         this.password = password;
@@ -27,7 +27,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "name : " + this.name + "\nusername : " + this.username + "\npassword : " + this.password + "\nid : " + this.id + "\n"; //To change body of generated methods, choose Tools | Templates.
+        return this.id + " " + this.name + " " + this.username + " " + this.password; //To change body of generated methods, choose Tools | Templates.
     }
     
 }

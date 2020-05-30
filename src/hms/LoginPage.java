@@ -5,6 +5,10 @@
  */
 package hms;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  *
  * @author Hussam
@@ -31,7 +35,7 @@ public class LoginPage extends javax.swing.JFrame {
         user_txt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         login_btn = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        password_txt = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,11 +69,11 @@ public class LoginPage extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(user_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1))
+                    .addComponent(password_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(user_txt))
                 .addGap(47, 47, 47))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(191, Short.MAX_VALUE)
+                .addContainerGap(140, Short.MAX_VALUE)
                 .addComponent(login_btn)
                 .addGap(166, 166, 166))
         );
@@ -83,7 +87,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(password_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(login_btn)
                 .addGap(52, 52, 52))
@@ -97,7 +101,37 @@ public class LoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_user_txtActionPerformed
 
     private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
-        // TODO add your handling code here:
+        String password = password_txt.getText();
+        String username = user_txt.getText();
+        String std_usr, std_pas;
+        if("admin".equals(username) && "admin".equals(password)){
+            HMS.admin.setVisible(true);
+            this.setVisible(false);
+        }else{
+            try {
+                File myObj = new File("students.txt");
+                Scanner myReader = new Scanner(myObj);
+                while (myReader.hasNextLine()) {
+                  String id = myReader.next();
+                  String name = myReader.next();
+                  String usr = myReader.next();
+                  String pas = myReader.next();
+                  System.out.println(id + "this is the id only");
+                  System.out.println(pas + "this is the password only");
+                  
+                  if(usr.equals(username) && pas.equals(password)){
+                      HMS.current_user = id;
+                      HMS.student.setVisible(true);
+                      this.setVisible(false);
+                  }
+                    }
+                 myReader.close();
+             } catch (FileNotFoundException e) {
+                 System.out.println("An error occurred.");
+                 e.printStackTrace();
+                }
+          
+        }
     }//GEN-LAST:event_login_btnActionPerformed
 
     /**
@@ -138,8 +172,8 @@ public class LoginPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JButton login_btn;
+    private javax.swing.JPasswordField password_txt;
     private javax.swing.JTextField user_txt;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,26 +5,35 @@
  */
 package hms;
 
-import java.util.ArrayList;
-
-/**
- *
- * @author Hussam
- */
 public class StudentList {
-    Student[] StudentList = new Student[1000];
-    int length = 0;
+    private Student[] students = new Student[1000];
+    private int length = 0;
     
     void insert(Student s){
-      
+      students[length] = s;
+      length++;
     }
     
-    void setattendance (int id , boolean attendance ){
-    for (int i = 0; i < length ; i++)
-    {
-        if (StudentList[i].id == id){
-            StudentList[i].attendance.add(attendance);
+    void setAttendance (String id , boolean attendance ){
+        for (int i = 0; i < length ; i++){
+            if (students[i].id.equals(id)){
+                students[i].attendance.add(attendance);
+            }
         }
     }
+    
+    int getLength(){
+        return this.length;
     }
+
+    @Override
+    public String toString() {
+        String res = "";
+        for(int i = 0  ; i < length ; i++){
+            res += students[i].toString();
+        }
+        return res;
+    }
+    
+    
 }

@@ -34,13 +34,13 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="user_txt" pref="83" max="32767" attributes="0"/>
-                  <Component id="jPasswordField1" max="32767" attributes="0"/>
+                  <Component id="password_txt" pref="188" max="32767" attributes="0"/>
+                  <Component id="user_txt" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="191" max="32767" attributes="0"/>
+              <EmptySpace pref="140" max="32767" attributes="0"/>
               <Component id="login_btn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
           </Group>
@@ -57,7 +57,7 @@
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jPasswordField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="password_txt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="72" max="32767" attributes="0"/>
               <Component id="login_btn" min="-2" max="-2" attributes="0"/>
@@ -90,7 +90,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="login_btnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="jPasswordField1">
+    <Component class="javax.swing.JPasswordField" name="password_txt">
     </Component>
   </SubComponents>
 </Form>

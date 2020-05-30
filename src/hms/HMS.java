@@ -7,6 +7,8 @@ package hms;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
@@ -26,6 +28,9 @@ import javax.swing.UIManager;
 public class HMS extends JApplet {
     static JFrame frame = new JFrame("JavaFX 2 in Swing");
     static LoginPage login = new LoginPage();
+    static AdminPage admin = new AdminPage();
+    static StudentPage student = new StudentPage();
+    static String current_user;
     private static final int JFXPANEL_WIDTH_INT = 300;
     private static final int JFXPANEL_HEIGHT_INT = 250;
     private static JFXPanel fxContainer;
@@ -34,6 +39,19 @@ public class HMS extends JApplet {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        try {
+      File myObj = new File("students.txt");
+      if (myObj.createNewFile()) {
+        System.out.println("File created: " + myObj.getName());
+      } else {
+        System.out.println("File already exists.");
+      }
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+        
         SwingUtilities.invokeLater(new Runnable() {
             
             @Override
