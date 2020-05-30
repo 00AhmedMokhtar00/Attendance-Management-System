@@ -5,6 +5,11 @@
  */
 package hms;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Hussam
@@ -15,7 +20,9 @@ public class StudentPage extends javax.swing.JFrame {
      * Creates new form StudentPage
      */
     public StudentPage() {
+        
         initComponents();
+        welcome_lbl.setText("Welcome " + HMS.current_username + '!');
     }
 
     /**
@@ -27,60 +34,115 @@ public class StudentPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        welcome_lbl = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("View Attendance");
-
         jButton2.setText("Attendance Percentage");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("Start Date");
+        welcome_lbl.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        welcome_lbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel2.setText("End Date");
+        jButton1.setText("Logout");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(126, 126, 126))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(welcome_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(33, 33, 33))))
+                        .addGap(183, 183, 183))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jButton2))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(welcome_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(37, 37, 37))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        Student s;
+        StudentList stList = new StudentList();
+        
+        try {
+                File myObj = new File("students.txt");
+                Scanner reader = new Scanner(myObj);
+                 while (reader.hasNextLine()) {
+                     String id = reader.nextLine();
+                     String name = reader.nextLine();
+                     String usr = reader.nextLine();
+                     String pas = reader.nextLine();
+                     String present = reader.nextLine();
+                     String absent = reader.nextLine();
+                     s = new Student(name, usr, pas, id, Integer.parseInt(present), Integer.parseInt(absent));
+                     stList.insert(s);
+                  }
+                  reader.close();
+                  s = stList.getAttendance(HMS.current_user);
+                  if(s != null){
+                      int total = s.present + s.absent;
+                      double percentage;
+                      if(total != 0){
+                        percentage = s.present / total * 100;
+                      }else{
+                          percentage = 100;
+                      }
+                      JOptionPane.showMessageDialog(rootPane, "You attendance percentage is: " + percentage + "%", null,JOptionPane.INFORMATION_MESSAGE);
+                  }
+                  HMS.writeToFile(stList.toString());
+                 
+                  
+                  
+                } catch (FileNotFoundException e) {
+                    System.out.println("An error occurred.");
+                     e.printStackTrace();
+                }
+        
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        HMS.login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -107,6 +169,7 @@ public class StudentPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new StudentPage().setVisible(true);
             }
         });
@@ -115,7 +178,6 @@ public class StudentPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel welcome_lbl;
     // End of variables declaration//GEN-END:variables
 }

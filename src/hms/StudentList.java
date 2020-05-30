@@ -34,9 +34,21 @@ public class StudentList {
     void setAttendance (String id , boolean attendance ){
         for (int i = 0; i < length ; i++){
             if (students[i].id.equals(id)){
-                students[i].attendance.add(attendance);
+                if(attendance == true){
+                    students[i].present++;
+                }else{
+                    students[i].absent++;
+                }
             }
         }
+    }
+    Student getAttendance (String id){
+        for (int i = 0; i < length ; i++){
+            if (students[i].id.equals(id)){
+                return students[i];
+            }
+        }
+        return null;
     }
     
     int getLength(){

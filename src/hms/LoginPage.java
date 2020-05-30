@@ -102,10 +102,13 @@ public class LoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_user_txtActionPerformed
 
     private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
-        boolean isRegistered = false;
+        boolean isRegistered = false, correctPassword = true;
         String password = password_txt.getText();
         String username = user_txt.getText();
         String std_usr, std_pas;
+        if("".equals(username) || "".equals(password)){
+                     JOptionPane.showMessageDialog(rootPane, "Please don't leave fields empty!", null,JOptionPane.WARNING_MESSAGE);
+        }else{
         if("admin".equals(username) && "admin".equals(password)){
             HMS.admin.setVisible(true);
             this.setVisible(false);
@@ -118,40 +121,39 @@ public class LoginPage extends javax.swing.JFrame {
                      String name = reader.nextLine();
                      String usr = reader.nextLine();
                      String pas = reader.nextLine();
+                     String present = reader.nextLine();
+                     String absent = reader.nextLine();
                
                   
-                  if(usr.equals(username) && pas.equals(password)){
-                      HMS.current_user = id;
-                      HMS.student.setVisible(true);
-                      this.setVisible(false);
+                  if(usr.equals(username)){
                       isRegistered = true;
+                      if(pas.equals(password)){
+                      HMS.current_user = id;
+                      HMS.current_username = name;
+                      StudentPage student = new StudentPage();
+                      
+                      student.setVisible(true);
+                      this.setVisible(false);
                       break;
+                      }else{
+                          correctPassword = false;
+                      }
                   }
                   }
                  if(!isRegistered){
                      JOptionPane.showMessageDialog(rootPane, "You are not registered, please contact the administraitor.", null,JOptionPane.WARNING_MESSAGE);
+                 }else if(!correctPassword){
+                     JOptionPane.showMessageDialog(rootPane, "Wrong Password, please try again", null,JOptionPane.WARNING_MESSAGE);
                  }
                   reader.close();
                 } catch (FileNotFoundException e) {
                     System.out.println("An error occurred.");
                      e.printStackTrace();
                 }
+        }
          
         
-           
-                /*
-                String id = HMS.reader.next();
-                  String name = HMS.reader.next();
-                  String usr = HMS.reader.next();
-                  String pas = HMS.reader.next();
-               
-                  
-                  if(usr.equals(username) && pas.equals(password)){
-                      HMS.current_user = id;
-                      HMS.student.setVisible(true);
-                      this.setVisible(false);
-                  }
-                */
+ 
           
         }
     }//GEN-LAST:event_login_btnActionPerformed

@@ -207,7 +207,7 @@ public class AdminPage extends javax.swing.JFrame {
         name = name_txt.getText();
         user = user_txt.getText();
         password = pass_txt.getText();
-        Student s = new Student(name, user, password, id);
+        Student s = new Student(name, user, password, id, 0, 0);
         
         
         try {
@@ -234,7 +234,9 @@ public class AdminPage extends javax.swing.JFrame {
                      String name = reader.nextLine();
                      String usr = reader.nextLine();
                      String pas = reader.nextLine();
-                     s = new Student(name, usr, pas, id);
+                     String present = reader.nextLine();
+                     String absent = reader.nextLine();
+                     s = new Student(name, usr, pas, id, Integer.parseInt(present), Integer.parseInt(absent));
                      stList.insert(s);
                   }
                   reader.close();

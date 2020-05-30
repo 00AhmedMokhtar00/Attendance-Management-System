@@ -31,8 +31,8 @@ public class HMS extends JApplet {
     static JFrame frame = new JFrame("JavaFX 2 in Swing");
     static LoginPage login = new LoginPage();
     static AdminPage admin = new AdminPage();
-    static StudentPage student = new StudentPage();
     static String current_user;
+    static String current_username;
     private static final int JFXPANEL_WIDTH_INT = 300;
     private static final int JFXPANEL_HEIGHT_INT = 250;
     private static JFXPanel fxContainer;
