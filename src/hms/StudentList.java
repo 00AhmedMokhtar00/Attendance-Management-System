@@ -60,6 +60,26 @@ public class StudentList {
     int getLength(){
         return this.length;
     }
+    
+    String formattedList() {
+        String res = "", temp;
+        double percentage;
+        for(int i = 0  ; i < length ; i++){
+            double total = students[i].present + students[i].absent;
+            if(total == 0.0){
+                percentage = 100.0;
+            }else{
+                percentage = students[i].present / total * 100.0;
+            }
+            temp = "ID: " + students[i].id + "\nName: " + students[i].name 
+                    + "\nUsername: " + students[i].username + "\nPassword: " + students[i].password
+                    + "\nAttendance Percentage: " + percentage
+                    +"\n----------------------\n";
+            
+            res += temp;
+        }
+        return res;
+    }
 
     @Override
     public String toString() {
