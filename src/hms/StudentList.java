@@ -31,16 +31,22 @@ public class StudentList {
       return false;
     }
     
-    void setAttendance (String id , boolean attendance ){
-        for (int i = 0; i < length ; i++){
+    boolean setAttendance (String id , boolean attendance ){
+        int i;
+        for (i = 0; i < length ; i++){
             if (students[i].id.equals(id)){
                 if(attendance == true){
                     students[i].present++;
                 }else{
                     students[i].absent++;
                 }
+                break;
             }
         }
+        if(i == length){
+            return false;
+        }
+        return true;
     }
     Student getAttendance (String id){
         for (int i = 0; i < length ; i++){

@@ -110,7 +110,7 @@ public class StudentPage extends javax.swing.JFrame {
                   reader.close();
                   s = stList.getAttendance(HMS.current_user);
                   if(s != null){
-                      int total = s.present + s.absent;
+                      double total = s.present + s.absent;
                       double percentage;
                       if(total != 0){
                         percentage = s.present / total * 100;

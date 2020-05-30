@@ -112,6 +112,8 @@ public class LoginPage extends javax.swing.JFrame {
         if("admin".equals(username) && "admin".equals(password)){
             HMS.admin.setVisible(true);
             this.setVisible(false);
+            user_txt.setText("");
+            password_txt.setText("");
         }else{
             try {
                 File myObj = new File("students.txt");
@@ -145,6 +147,8 @@ public class LoginPage extends javax.swing.JFrame {
                  }else if(!correctPassword){
                      JOptionPane.showMessageDialog(rootPane, "Wrong Password, please try again", null,JOptionPane.WARNING_MESSAGE);
                  }
+                 user_txt.setText("");
+                 password_txt.setText("");
                   reader.close();
                 } catch (FileNotFoundException e) {
                     System.out.println("An error occurred.");

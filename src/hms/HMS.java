@@ -32,6 +32,7 @@ public class HMS extends JApplet {
     static LoginPage login = new LoginPage();
     static AddStudent addStudent = new AddStudent();
     static AdminPage admin = new AdminPage();
+    static AttendancePage attendance = new AttendancePage();
     static String current_user;
     static String current_username;
     private static final int JFXPANEL_WIDTH_INT = 300;
