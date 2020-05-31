@@ -1,6 +1,6 @@
 # Attendance-Management-System
 
-
+simple javaFX SWING application using txt file to store records
 
 application starts with simple form:
 
