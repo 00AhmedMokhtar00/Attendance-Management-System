@@ -23,6 +23,44 @@ public class StudentPage extends javax.swing.JFrame {
         
         initComponents();
         welcome_lbl.setText("Welcome " + HMS.current_username + '!');
+        Student s;
+        StudentList stList = new StudentList();
+
+        try {
+                File myObj = new File("students.txt");
+                Scanner reader = new Scanner(myObj);
+                 while (reader.hasNextLine()) {
+                     String id = reader.nextLine();
+                     String name = reader.nextLine();
+                     String usr = reader.nextLine();
+                     String pas = reader.nextLine();
+                     String present = reader.nextLine();
+                     String absent = reader.nextLine();
+                     s = new Student(name, usr, pas, id, Integer.parseInt(present), Integer.parseInt(absent));
+                     stList.insert(s);
+                  }
+                  reader.close();
+                  s = stList.getAttendance(HMS.current_user);
+                  if(s != null){
+                      double total = s.present + s.absent;
+                      double percentage;
+                      if(total != 0){
+                        percentage = s.present / total * 100;
+                      }else{
+                          percentage = 100;
+                      }
+                      if(100 - percentage >= 20){
+                          warning_lbl.setText("your absence persentage is " + (100 - percentage));
+                      }
+                  }
+                  HMS.writeToFile(stList.toString());
+                 
+                  
+                  
+                } catch (FileNotFoundException e) {
+                    System.out.println("An error occurred.");
+                     e.printStackTrace();
+                }
     }
 
     /**
@@ -37,6 +75,7 @@ public class StudentPage extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         welcome_lbl = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        warning_lbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,29 +96,35 @@ public class StudentPage extends javax.swing.JFrame {
             }
         });
 
+        warning_lbl.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        warning_lbl.setForeground(new java.awt.Color(153, 0, 0));
+        warning_lbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(126, 126, 126))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(welcome_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(welcome_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(183, 183, 183))))
+                        .addGap(147, 147, 147))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(90, 90, 90))
+                    .addComponent(warning_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(welcome_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(warning_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
@@ -178,6 +223,7 @@ public class StudentPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel warning_lbl;
     private javax.swing.JLabel welcome_lbl;
     // End of variables declaration//GEN-END:variables
 }
