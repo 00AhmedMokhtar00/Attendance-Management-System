@@ -2,6 +2,10 @@
 
 simple javaFX SWING application using txt file to store records
 
+application uml: 
+
+![](images/uml.png)
+
 application starts with simple form:
 
 ![](images/1.png)
